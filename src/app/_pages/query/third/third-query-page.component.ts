@@ -12,7 +12,8 @@ import {forEach} from '@angular/router/src/utils/collection';
 export class ThirdQueryPageComponent implements OnInit {
 
   resultsStickyHeader = true;
-  displayedColumns = ['country', 'city', 'new_position', 'new_value', 'old_position', 'old_value'];
+  dataFields = ['country', 'city', 'new_position', 'new_value', 'old_position', 'old_value'];
+  headerFields: string[];
   rowDataSource: ThirdQueryResultSample[] = [
     {country: 'Israel', city: 'Beersheba', newRank: {position: 2, value: 14.907187993279422},
       oldRank: {position: 1, value: 14.065295122896487}},
@@ -36,6 +37,8 @@ export class ThirdQueryPageComponent implements OnInit {
 
   constructor() {
     this.dataSource = this.mapResults(this.rowDataSource);
+    this.headerFields = this.replaceHeader(this.dataFields, new RegExp('new_', 'g'), '2017 ');
+    this.headerFields = this.replaceHeader(this.headerFields, new RegExp('old_', 'g'), '2016 ');
   }
 
   ngOnInit() {
@@ -50,6 +53,14 @@ export class ThirdQueryPageComponent implements OnInit {
           old_position: data.oldRank.position, old_value: data.oldRank.value
         };
       });
+  }
+
+  replaceHeader(strings: string[], regex: RegExp, replaceValue: string): string[] {
+    return strings.map(
+      str => {
+        return str.replace(regex, replaceValue);
+      }
+    );
   }
 
 }

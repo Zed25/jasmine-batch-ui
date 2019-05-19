@@ -8,7 +8,7 @@ import {FirstQueryResultSample} from '../../../model/first.query.result.sample';
 })
 export class FirstQueryPageComponent implements OnInit {
   resultsStickyHeader = true;
-  displayedColumns = ['year', 'city'];
+  headerFields = ['year', 'city'];
   dataSource: FirstQueryResultSample[] = [
     {year: '2017', city: 'Phoenix'},
     {year: '2013', city: 'Las Vegas'},

@@ -9,6 +9,7 @@ export class TableComponent implements OnInit {
 
   @Input() headerFields: string[];
   @Input() stickyHeader: boolean;
+  @Input() dataFields: string[];
   @Input() dataSource: any[];
 
   constructor() { }
