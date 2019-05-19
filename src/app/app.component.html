@@ -11,24 +11,24 @@
 
       <h2 matSubheader>Query 1 - Clear Cities</h2>
 
-      <a mat-list-item routerLink="">Results</a>
+      <a mat-list-item routerLink="queries/first">Results</a>
 
       <mat-divider></mat-divider>
 
       <h2 matSubheader>Query 2 - Analytics</h2>
 
-      <a mat-list-item routerLink="">Temperature</a>
-      <a mat-list-item routerLink="">Humidity</a>
-      <a mat-list-item routerLink="">Pressure</a>
+      <a mat-list-item routerLink="queries/second">Temperature</a>
+      <a mat-list-item routerLink="queries/second">Humidity</a>
+      <a mat-list-item routerLink="queries/second">Pressure</a>
 
       <mat-divider></mat-divider>
 
       <h2 matSubheader>Query 3 - Charts</h2>
 
-      <a mat-list-item routerLink="">Temp Diff</a>
+      <a mat-list-item routerLink="queries/third">Temp Diff</a>
 
     </mat-nav-list>
   </mat-sidenav>
-  <div>I contain the main content and I am scrollable</div>
+  <div class="main-view"><router-outlet></router-outlet></div>
 </mat-sidenav-container>
-<router-outlet></router-outlet>
+

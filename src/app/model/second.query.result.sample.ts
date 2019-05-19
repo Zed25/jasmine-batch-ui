@@ -3,12 +3,12 @@ export class SecondQueryResultSample {
   year: string;
   month: string;
   country: string;
-  mean: double;
-  stdev: double;
-  min: double;
-  max: double;
+  mean: number;
+  stdev: number;
+  min: number;
+  max: number;
 
-  constructor(year: string, month: string, country: string, mean: double, stdev: double, min: double, max: double) {
+  constructor(year: string, month: string, country: string, mean: number, stdev: number, min: number, max: number) {
     this.year = year;
     this.month = month;
     this.country = country;

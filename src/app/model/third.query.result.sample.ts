@@ -15,10 +15,10 @@ export class ThirdQueryResultSample {
 }
 
 class Chart {
-  position: int;
-  value: double;
+  position: number;
+  value: number;
 
-  constructor(position: int, value: double) {
+  constructor(position: number, value: number) {
     this.position = position;
     this.value = value;
   }
