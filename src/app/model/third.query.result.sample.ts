@@ -1,20 +1,20 @@
 // example {country: United States, city: Las Vegas,
-// newChart : { position : 1, value: 19.069047474348224 }, oldChart : { position: 4, value: 18.35447799202899 } }
+// newRank : { position : 1, value: 19.069047474348224 }, oldRank : { position: 4, value: 18.35447799202899 } }
 export class ThirdQueryResultSample {
   country: string;
   city: string;
-  newChart: Chart;
-  oldChart: Chart;
+  newRank: Ranking;
+  oldRank: Ranking;
 
-  constructor(country: string, city: string, newChart: Chart, oldChart: Chart) {
+  constructor(country: string, city: string, newRank: Ranking, oldRank: Ranking) {
     this.country = country;
     this.city = city;
-    this.newChart = newChart;
-    this.oldChart = oldChart;
+    this.newRank = newRank;
+    this.oldRank = oldRank;
   }
 }
 
-class Chart {
+class Ranking {
   position: number;
   value: number;
 

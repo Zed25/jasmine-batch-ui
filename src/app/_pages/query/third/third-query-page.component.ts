@@ -14,36 +14,42 @@ export class ThirdQueryPageComponent implements OnInit {
   resultsStickyHeader = true;
   displayedColumns = ['country', 'city', 'new_position', 'new_value', 'old_position', 'old_value'];
   rowDataSource: ThirdQueryResultSample[] = [
-    {country: 'Israel', city: 'Beersheba', newChart: {position: 2, value: 14.907187993279422},
-      oldChart: {position: 1, value: 14.065295122896487}},
-    {country: 'Israel', city: 'Beersheba', newChart: {position: 2, value: 14.907187993279422},
-      oldChart: {position: 1, value: 14.065295122896487}},
-    {country: 'Israel', city: 'Beersheba', newChart: {position: 2, value: 14.907187993279422},
-      oldChart: {position: 1, value: 14.065295122896487}},
-    {country: 'Israel', city: 'Beersheba', newChart: {position: 2, value: 14.907187993279422},
-      oldChart: {position: 1, value: 14.065295122896487}},
-    {country: 'Israel', city: 'Beersheba', newChart: {position: 2, value: 14.907187993279422},
-      oldChart: {position: 1, value: 14.065295122896487}},
-    {country: 'Israel', city: 'Beersheba', newChart: {position: 2, value: 14.907187993279422},
-      oldChart: {position: 1, value: 14.065295122896487}},
-    {country: 'Israel', city: 'Beersheba', newChart: {position: 2, value: 14.907187993279422},
-      oldChart: {position: 1, value: 14.065295122896487}},
-    {country: 'Israel', city: 'Beersheba', newChart: {position: 2, value: 14.907187993279422},
-      oldChart: {position: 1, value: 14.065295122896487}}
+    {country: 'Israel', city: 'Beersheba', newRank: {position: 2, value: 14.907187993279422},
+      oldRank: {position: 1, value: 14.065295122896487}},
+    {country: 'Israel', city: 'Beersheba', newRank: {position: 2, value: 14.907187993279422},
+      oldRank: {position: 1, value: 14.065295122896487}},
+    {country: 'Israel', city: 'Beersheba', newRank: {position: 2, value: 14.907187993279422},
+      oldRank: {position: 1, value: 14.065295122896487}},
+    {country: 'Israel', city: 'Beersheba', newRank: {position: 2, value: 14.907187993279422},
+      oldRank: {position: 1, value: 14.065295122896487}},
+    {country: 'Israel', city: 'Beersheba', newRank: {position: 2, value: 14.907187993279422},
+      oldRank: {position: 1, value: 14.065295122896487}},
+    {country: 'Israel', city: 'Beersheba', newRank: {position: 2, value: 14.907187993279422},
+      oldRank: {position: 1, value: 14.065295122896487}},
+    {country: 'Israel', city: 'Beersheba', newRank: {position: 2, value: 14.907187993279422},
+      oldRank: {position: 1, value: 14.065295122896487}},
+    {country: 'Israel', city: 'Beersheba', newRank: {position: 2, value: 14.907187993279422},
+      oldRank: {position: 1, value: 14.065295122896487}}
   ];
 
-  dataSource: ThirdQueryResultSampleRepresentation[] = this.rowDataSource.map(
-    data => {
-      return {
-        country: data.country, city: data.city,
-        new_position: data.newChart.position, new_value: data.newChart.value,
-        old_position: data.oldChart.position, old_value: data.oldChart.value
-      };
-    });
+  dataSource: ThirdQueryResultSampleRepresentation[];
 
-  constructor() { }
+  constructor() {
+    this.dataSource = this.mapResults(this.rowDataSource);
+  }
 
   ngOnInit() {
+  }
+
+  mapResults(thirdQueryResultSample: ThirdQueryResultSample[]): ThirdQueryResultSampleRepresentation[] {
+    return thirdQueryResultSample.map(
+      data => {
+        return {
+          country: data.country, city: data.city,
+          new_position: data.newRank.position, new_value: data.newRank.value,
+          old_position: data.oldRank.position, old_value: data.oldRank.value
+        };
+      });
   }
 
 }
