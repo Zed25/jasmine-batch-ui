@@ -50,15 +50,15 @@ export class SecondQueryPageComponent implements OnInit, OnDestroy {
   mapResults(results: SecondQueryResultSample[]): SecondQueryResultSampleRepresentation[] {
     return results.map(
       result => {
-        return {
-          year: result.year,
-          month: result.month,
-          country: result.country,
-          mean: result.metrics.mean,
-          stdev: result.metrics.stdev,
-          min: result.metrics.min,
-          max: result.metrics.max
-        };
+        return new SecondQueryResultSampleRepresentation(
+          result.year,
+          result.month - 1,
+          result.country,
+          result.metrics.mean,
+          result.metrics.stdev,
+          result.metrics.min,
+          result.metrics.max
+        );
       }
     );
   }
