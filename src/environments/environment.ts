@@ -11,7 +11,7 @@ export const environment = {
     },
     api: {
       protocol: 'http://',
-      hostname: 'localhost',
+      hostname: 'loaclhost',
       version: 'api/v1',
       services: {
         query: {

@@ -16,14 +16,14 @@ import {TableComponent} from '../../../shared/components/table/table.component';
 })
 export class SecondQueryPageComponent implements OnInit, OnDestroy {
 
-  private _type: Subscription;
-  private type: string;
-  private resultsStickyHeader = true;
-  private withFilter = true;
-  private headerFields = ['year', 'month', 'country', 'mean', 'stdev', 'min', 'max'];
-  private dataSourceSub: Subscription;
-  private dataSourceMap: SecondQueryResultSampleRepresentation[];
-  private dataSource: MatTableDataSource<SecondQueryResultSampleRepresentation>;
+  _type: Subscription;
+  type: string;
+  resultsStickyHeader = true;
+  withFilter = true;
+  headerFields = ['year', 'month', 'country', 'mean', 'stdev', 'min', 'max'];
+  dataSourceSub: Subscription;
+  dataSourceMap: SecondQueryResultSampleRepresentation[];
+  dataSource: MatTableDataSource<SecondQueryResultSampleRepresentation>;
 
   constructor(private route: ActivatedRoute,
               private queryService: QueriesService) { }

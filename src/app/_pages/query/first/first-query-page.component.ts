@@ -15,12 +15,12 @@ import {MatTableDataSource} from '@angular/material';
 })
 export class FirstQueryPageComponent implements OnInit, OnDestroy {
 
-  private resultsStickyHeader = true;
-  private withFilter = true;
-  private headerFields = ['year', 'city', 'country'];
-  private dataSourceSub: Subscription;
-  private dataSourceMap: FirstQueryResultSampleRepresentation[];
-  private dataSource: MatTableDataSource<FirstQueryResultSampleRepresentation>;
+  resultsStickyHeader = true;
+  withFilter = true;
+  headerFields = ['year', 'city', 'country'];
+  dataSourceSub: Subscription;
+  dataSourceMap: FirstQueryResultSampleRepresentation[];
+  dataSource: MatTableDataSource<FirstQueryResultSampleRepresentation>;
 
 
   constructor(private queryService: QueriesService) { }

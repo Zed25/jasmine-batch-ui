@@ -16,13 +16,13 @@ import {TableComponent} from '../../../shared/components/table/table.component';
 })
 export class ThirdQueryPageComponent implements OnInit, OnDestroy {
 
-  private resultsStickyHeader = true;
-  private withFilter = true;
-  private dataFields = ['country', 'city', 'new_position', 'new_value', 'old_position', 'old_value'];
-  private headerFields: string[];
-  private dataSourceSub: Subscription;
-  private dataSourceMap: ThirdQueryResultSampleRepresentation[];
-  private dataSource: MatTableDataSource<ThirdQueryResultSampleRepresentation>;
+  resultsStickyHeader = true;
+  withFilter = true;
+  dataFields = ['country', 'city', 'new_position', 'new_value', 'old_position', 'old_value'];
+  headerFields: string[];
+  dataSourceSub: Subscription;
+  dataSourceMap: ThirdQueryResultSampleRepresentation[];
+  dataSource: MatTableDataSource<ThirdQueryResultSampleRepresentation>;
 
   constructor(private queryService: QueriesService) {
   }
