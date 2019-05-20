@@ -14,11 +14,13 @@ import {MatTableDataSource} from '@angular/material';
   styleUrls: ['./first-query-page.component.scss']
 })
 export class FirstQueryPageComponent implements OnInit, OnDestroy {
-  resultsStickyHeader = true;
-  headerFields = ['year', 'city', 'country'];
-  dataSourceSub: Subscription;
-  dataSourceMap: FirstQueryResultSampleRepresentation[];
-  dataSource: MatTableDataSource<FirstQueryResultSampleRepresentation>;
+
+  private resultsStickyHeader = true;
+  private withFilter = true;
+  private headerFields = ['year', 'city', 'country'];
+  private dataSourceSub: Subscription;
+  private dataSourceMap: FirstQueryResultSampleRepresentation[];
+  private dataSource: MatTableDataSource<FirstQueryResultSampleRepresentation>;
 
 
   constructor(private queryService: QueriesService) { }
@@ -46,4 +48,5 @@ export class FirstQueryPageComponent implements OnInit, OnDestroy {
       }
     );
   }
+
 }

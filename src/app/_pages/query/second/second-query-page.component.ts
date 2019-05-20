@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FirstQueryResultSample} from '../../../model/first.query.result.sample';
 import {SecondQueryResultSample} from '../../../model/second.query.result.sample';
 import {MatTableDataSource} from '@angular/material';
@@ -7,6 +7,7 @@ import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {QueriesService} from '../../../shared/services/queries.service';
 import {SecondQueryResultSampleRepresentation} from './model/second-query-result-sample-representation';
+import {TableComponent} from '../../../shared/components/table/table.component';
 
 @Component({
   selector: 'app-second-query-page',
@@ -17,11 +18,12 @@ export class SecondQueryPageComponent implements OnInit, OnDestroy {
 
   private _type: Subscription;
   private type: string;
-  resultsStickyHeader = true;
-  headerFields = ['year', 'month', 'country', 'mean', 'stdev', 'min', 'max'];
-  dataSourceSub: Subscription;
-  dataSourceMap: SecondQueryResultSampleRepresentation[];
-  dataSource: MatTableDataSource<SecondQueryResultSampleRepresentation>;
+  private resultsStickyHeader = true;
+  private withFilter = true;
+  private headerFields = ['year', 'month', 'country', 'mean', 'stdev', 'min', 'max'];
+  private dataSourceSub: Subscription;
+  private dataSourceMap: SecondQueryResultSampleRepresentation[];
+  private dataSource: MatTableDataSource<SecondQueryResultSampleRepresentation>;
 
   constructor(private route: ActivatedRoute,
               private queryService: QueriesService) { }
@@ -33,8 +35,9 @@ export class SecondQueryPageComponent implements OnInit, OnDestroy {
   private initialize() {
     this._type = this.route.params.subscribe(params => {
         this.type = params['term'];
-        this.dataSourceSub = this.queryService.getSecondQueryResults(this.type).subscribe((results) =>
-          this.dataSource.data = this.mapResults(results)
+        this.dataSourceSub = this.queryService.getSecondQueryResults(this.type).subscribe((results) => {
+            this.dataSource.data = this.mapResults(results);
+          }
         );
       }
     );

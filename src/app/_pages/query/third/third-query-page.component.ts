@@ -7,6 +7,7 @@ import {MatTableDataSource} from '@angular/material';
 import {FirstQueryResultSampleRepresentation} from '../first/model/first-query-result-sample-representation';
 import {Subscription} from 'rxjs';
 import {QueriesService} from '../../../shared/services/queries.service';
+import {TableComponent} from '../../../shared/components/table/table.component';
 
 @Component({
   selector: 'app-third-query-page',
@@ -15,19 +16,21 @@ import {QueriesService} from '../../../shared/services/queries.service';
 })
 export class ThirdQueryPageComponent implements OnInit, OnDestroy {
 
-  resultsStickyHeader = true;
-  dataFields = ['country', 'city', 'new_position', 'new_value', 'old_position', 'old_value'];
-  headerFields: string[];
-  dataSourceSub: Subscription;
-  dataSourceMap: ThirdQueryResultSampleRepresentation[];
-  dataSource: MatTableDataSource<ThirdQueryResultSampleRepresentation>;
+  private resultsStickyHeader = true;
+  private withFilter = true;
+  private dataFields = ['country', 'city', 'new_position', 'new_value', 'old_position', 'old_value'];
+  private headerFields: string[];
+  private dataSourceSub: Subscription;
+  private dataSourceMap: ThirdQueryResultSampleRepresentation[];
+  private dataSource: MatTableDataSource<ThirdQueryResultSampleRepresentation>;
 
   constructor(private queryService: QueriesService) {
   }
 
   ngOnInit() {
-    this.dataSourceSub = this.queryService.getThirdQueryResults().subscribe((results) =>
-      this.dataSource.data = this.mapResults(results)
+    this.dataSourceSub = this.queryService.getThirdQueryResults().subscribe((results) => {
+        this.dataSource.data = this.mapResults(results);
+      }
     );
 
     this.dataSource = new MatTableDataSource(this.dataSourceMap);

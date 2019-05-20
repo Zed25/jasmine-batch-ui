@@ -4,9 +4,11 @@
   minimum and maximum of {{type}} for each month of each year in period reported</h5></div>
 <!-- Results -->
 <div class="table-container mat-elevation-z3">
-  <div><h3 class="table-header-title">{{type | titlecase}}</h3></div>
+  <div><h3 class="table-header-title mat-elevation-z3">{{type | titlecase}}</h3></div>
   <app-table [dataSource]="dataSource"
              [dataFields]="headerFields"
              [headerFields]="headerFields"
-             [stickyHeader]="resultsStickyHeader"></app-table>
+             [stickyHeader]="resultsStickyHeader"
+             [withFilter]="withFilter" >
+  </app-table>
 </div>
