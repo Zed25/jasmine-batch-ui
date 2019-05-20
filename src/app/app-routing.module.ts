@@ -7,7 +7,7 @@ import {ThirdQueryPageComponent} from './_pages/query/third/third-query-page.com
 const routes: Routes = [
   { path: '', component: FirstQueryPageComponent },
   { path: 'queries/first', component: FirstQueryPageComponent },
-  { path: 'queries/second', component: SecondQueryPageComponent },
+  { path: 'queries/second/:term', component: SecondQueryPageComponent },
   { path: 'queries/third', component: ThirdQueryPageComponent },
 
   // otherwise redirect to home

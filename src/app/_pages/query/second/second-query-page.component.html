@@ -1,22 +1,12 @@
 <!-- Page description -->
 <div><h2>Mean - StDev - Min - Max (2012 - 2017)</h2></div>
 <div><h5>This section shows mean, standard deviation,
-  minimum and maximum of temperature, pressure and humidity for each month of each year in period reported</h5></div>
-<!-- Temperature Results -->
+  minimum and maximum of {{type}} for each month of each year in period reported</h5></div>
+<!-- Results -->
 <div class="table-container mat-elevation-z3">
-  <div><h3 class="table-header-title">Temperature</h3></div>
-  <app-table [dataSource]="temperatureDataSource" [dataFields]="temperatureColumns"
-             [headerFields]="temperatureColumns" [stickyHeader]="resultsStickyHeader"></app-table>
-</div>
-<!-- Humidity Results -->
-<div class="table-container mat-elevation-z3">
-  <div><h3 class="table-header-title">Humidity</h3></div>
-  <app-table [dataSource]="humidityDataSource" [dataFields]="humidityColumns"
-             [headerFields]="humidityColumns" [stickyHeader]="resultsStickyHeader"></app-table>
-</div>
-<!-- Pressure Results -->
-<div class="table-container mat-elevation-z3">
-  <div><h3 class="table-header-title">Pressure</h3></div>
-  <app-table [dataSource]="pressureDataSource" [dataFields]="pressureColumns"
-             [headerFields]="pressureColumns" [stickyHeader]="resultsStickyHeader"></app-table>
+  <div><h3 class="table-header-title">{{type | titlecase}}</h3></div>
+  <app-table [dataSource]="dataSource"
+             [dataFields]="headerFields"
+             [headerFields]="headerFields"
+             [stickyHeader]="resultsStickyHeader"></app-table>
 </div>

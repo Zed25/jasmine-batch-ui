@@ -9,6 +9,7 @@ import { FirstQueryPageComponent } from './_pages/query/first/first-query-page.c
 import { SecondQueryPageComponent } from './_pages/query/second/second-query-page.component';
 import { ThirdQueryPageComponent } from './_pages/query/third/third-query-page.component';
 import { TableComponent } from './shared/components/table/table.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { TableComponent } from './shared/components/table/table.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,56 +1,66 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FirstQueryResultSample} from '../../../model/first.query.result.sample';
 import {SecondQueryResultSample} from '../../../model/second.query.result.sample';
+import {MatTableDataSource} from '@angular/material';
+import {FirstQueryResultSampleRepresentation} from '../first/model/first-query-result-sample-representation';
+import {Subscription} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
+import {QueriesService} from '../../../shared/services/queries.service';
+import {SecondQueryResultSampleRepresentation} from './model/second-query-result-sample-representation';
 
 @Component({
   selector: 'app-second-query-page',
   templateUrl: './second-query-page.component.html',
   styleUrls: ['./second-query-page.component.scss']
 })
-export class SecondQueryPageComponent implements OnInit {
+export class SecondQueryPageComponent implements OnInit, OnDestroy {
 
+  private _type: Subscription;
+  private type: string;
   resultsStickyHeader = true;
-  displayedColumns = ['year', 'month', 'country', 'mean', 'stdev', 'min', 'max'];
-  temperatureColumns = this.displayedColumns;
-  humidityColumns = this.displayedColumns;
-  pressureColumns = this.displayedColumns;
-  temperatureDataSource: SecondQueryResultSample[] = [
-    {year: '2016', month: '7', country: 'Israel', mean: 302.24179479227286, stdev: 4.095820971556662, min: 288.325, max: 315.77},
-    {year: '2016', month: '7', country: 'Israel', mean: 302.24179479227286, stdev: 4.095820971556662, min: 288.325, max: 315.77},
-    {year: '2016', month: '7', country: 'Israel', mean: 302.24179479227286, stdev: 4.095820971556662, min: 288.325, max: 315.77},
-    {year: '2016', month: '7', country: 'Israel', mean: 302.24179479227286, stdev: 4.095820971556662, min: 288.325, max: 315.77},
-    {year: '2016', month: '7', country: 'Israel', mean: 302.24179479227286, stdev: 4.095820971556662, min: 288.325, max: 315.77},
-    {year: '2016', month: '7', country: 'Israel', mean: 302.24179479227286, stdev: 4.095820971556662, min: 288.325, max: 315.77},
-    {year: '2016', month: '7', country: 'Israel', mean: 302.24179479227286, stdev: 4.095820971556662, min: 288.325, max: 315.77},
-    {year: '2016', month: '7', country: 'Israel', mean: 302.24179479227286, stdev: 4.095820971556662, min: 288.325, max: 315.77}
-  ];
+  headerFields = ['year', 'month', 'country', 'mean', 'stdev', 'min', 'max'];
+  dataSourceSub: Subscription;
+  dataSourceMap: SecondQueryResultSampleRepresentation[];
+  dataSource: MatTableDataSource<SecondQueryResultSampleRepresentation>;
 
-  humidityDataSource: SecondQueryResultSample[] = [
-    {year: '2016', month: '7', country: 'Israel', mean: 73.66375448028666, stdev: 22.011993184816205, min: 10.0, max: 100.0},
-    {year: '2016', month: '7', country: 'Israel', mean: 73.66375448028666, stdev: 22.011993184816205, min: 10.0, max: 100.0},
-    {year: '2016', month: '7', country: 'Israel', mean: 73.66375448028666, stdev: 22.011993184816205, min: 10.0, max: 100.0},
-    {year: '2016', month: '7', country: 'Israel', mean: 73.66375448028666, stdev: 22.011993184816205, min: 10.0, max: 100.0},
-    {year: '2016', month: '7', country: 'Israel', mean: 73.66375448028666, stdev: 22.011993184816205, min: 10.0, max: 100.0},
-    {year: '2016', month: '7', country: 'Israel', mean: 73.66375448028666, stdev: 22.011993184816205, min: 10.0, max: 100.0},
-    {year: '2016', month: '7', country: 'Israel', mean: 73.66375448028666, stdev: 22.011993184816205, min: 10.0, max: 100.0},
-    {year: '2016', month: '7', country: 'Israel', mean: 73.66375448028666, stdev: 22.011993184816205, min: 10.0, max: 100.0},
-    {year: '2016', month: '7', country: 'Israel', mean: 73.66375448028666, stdev: 22.011993184816205, min: 10.0, max: 100.0}
-  ];
-
-  pressureDataSource: SecondQueryResultSample[] = [
-    {year: '2016', month: '7', country: 'Israel', mean: 1001.8474462365598, stdev: 17.097673701040286, min: 960.0, max: 1025.0},
-    {year: '2016', month: '7', country: 'Israel', mean: 1001.8474462365598, stdev: 17.097673701040286, min: 960.0, max: 1025.0},
-    {year: '2016', month: '7', country: 'Israel', mean: 1001.8474462365598, stdev: 17.097673701040286, min: 960.0, max: 1025.0},
-    {year: '2016', month: '7', country: 'Israel', mean: 1001.8474462365598, stdev: 17.097673701040286, min: 960.0, max: 1025.0},
-    {year: '2016', month: '7', country: 'Israel', mean: 1001.8474462365598, stdev: 17.097673701040286, min: 960.0, max: 1025.0},
-    {year: '2016', month: '7', country: 'Israel', mean: 1001.8474462365598, stdev: 17.097673701040286, min: 960.0, max: 1025.0},
-    {year: '2016', month: '7', country: 'Israel', mean: 1001.8474462365598, stdev: 17.097673701040286, min: 960.0, max: 1025.0},
-    {year: '2016', month: '7', country: 'Israel', mean: 1001.8474462365598, stdev: 17.097673701040286, min: 960.0, max: 1025.0}
-  ];
-
-  constructor() { }
+  constructor(private route: ActivatedRoute,
+              private queryService: QueriesService) { }
 
   ngOnInit() {
+    this.initialize();
+  }
+
+  private initialize() {
+    this._type = this.route.params.subscribe(params => {
+        this.type = params['term'];
+        this.dataSourceSub = this.queryService.getSecondQueryResults(this.type).subscribe((results) =>
+          this.dataSource.data = this.mapResults(results)
+        );
+      }
+    );
+
+    this.dataSource = new MatTableDataSource(this.dataSourceMap);
+  }
+
+  ngOnDestroy(): void {
+    this.dataSourceSub.unsubscribe();
+    this._type.unsubscribe();
+  }
+
+  mapResults(results: SecondQueryResultSample[]): SecondQueryResultSampleRepresentation[] {
+    return results.map(
+      result => {
+        return {
+          year: result.year,
+          month: result.month,
+          country: result.country,
+          mean: result.metrics.mean,
+          stdev: result.metrics.stdev,
+          min: result.metrics.min,
+          max: result.metrics.max
+        };
+      }
+    );
   }
 
 }

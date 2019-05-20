@@ -1,28 +1,49 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FirstQueryResultSample} from '../../../model/first.query.result.sample';
+import {QueriesService} from '../../../shared/services/queries.service';
+import {query} from '@angular/animations';
+import {FirstQueryResultSampleRepresentation} from './model/first-query-result-sample-representation';
+import {ThirdQueryResultSample} from '../../../model/third.query.result.sample';
+import {ThirdQueryResultSampleRepresentation} from '../third/model/third-query-result-sample-representation';
+import {Subscription} from 'rxjs';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-first-query-page',
   templateUrl: './first-query-page.component.html',
   styleUrls: ['./first-query-page.component.scss']
 })
-export class FirstQueryPageComponent implements OnInit {
+export class FirstQueryPageComponent implements OnInit, OnDestroy {
   resultsStickyHeader = true;
-  headerFields = ['year', 'city'];
-  dataSource: FirstQueryResultSample[] = [
-    {year: '2017', city: 'Phoenix'},
-    {year: '2013', city: 'Las Vegas'},
-    {year: '2016', city: 'Phoenix'},
-    {year: '2017', city: 'Eilat'},
-    {year: '2013', city: 'Eilat'},
-    {year: '2016', city: 'Las Vegas'},
-    {year: '2014', city: 'Las Vegas'},
-    {year: '2017', city: 'Las Vegas'}
-  ];
+  headerFields = ['year', 'city', 'country'];
+  dataSourceSub: Subscription;
+  dataSourceMap: FirstQueryResultSampleRepresentation[];
+  dataSource: MatTableDataSource<FirstQueryResultSampleRepresentation>;
 
-  constructor() { }
+
+  constructor(private queryService: QueriesService) { }
 
   ngOnInit() {
+    this.dataSourceSub = this.queryService.getFirstQueryResults().subscribe((results) =>
+      this.dataSource.data = this.mapResults(results)
+    );
+
+    this.dataSource = new MatTableDataSource(this.dataSourceMap);
   }
 
+  ngOnDestroy(): void {
+    this.dataSourceSub.unsubscribe();
+  }
+
+  mapResults(results: FirstQueryResultSample[]): FirstQueryResultSampleRepresentation[] {
+    return results.map(
+      result => {
+        return {
+          year: result.year,
+          country: result.city.country,
+          city: result.city.name,
+        };
+      }
+    );
+  }
 }
